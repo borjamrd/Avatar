@@ -6,8 +6,8 @@
     border-radius: 8px;
 }
 .avatar-img{
-    height: 80px;
-    width: 80px;
+    height: 150px;
+    width: 150px;
     border-radius: 50%;
     margin-top: -50px;
 }
@@ -19,7 +19,7 @@
     background-color: burlywood;
 }
 .other-info{
-    background-color: whitesmoke;
+    background-color: rgb(241, 169, 169);
 }
 
 .total-amount{
@@ -39,6 +39,10 @@ li {
     padding: 5%;
     border: 1px solid #808080;
 }
+.topSpace{
+    height: 150px;
+    background-color: cadetblue;
+}
 .profile{
     width: 100%;
     display: flex;
@@ -54,6 +58,7 @@ li {
     align-items: center;
     justify-content: center;
     width: 100%;
+    background-color: bisque;
 }
 .section-information{
     width: 100%;
