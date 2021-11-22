@@ -105,13 +105,20 @@ class UserInformation extends React.Component {
   constructor(props) {
     super(props)
     this.state = { ...props.data }
+    this.editField = this.editField.bind(this);
   }
+  editField(){
+    
+  }
+
+  
   render() {
     let informationItem = this.state.elements.map((element) =>
       <>
         <div className="informationItem">
           <div>{element.title}</div>
-          {(element.isEditable) ? <input  type="text" placeholder={element.text}></input> : <div>{element.text}</div>}   
+          {(element.isEditable) ? <div><input type="text" id="editable" placeholder={element.text}></input>
+          <button onClick={this.editField}>Editar</button></div>: <div>{element.text}</div>}   
         </div>
       </>);
     return (
@@ -123,8 +130,6 @@ class UserInformation extends React.Component {
     )
   }
 }
-
-
 
 
 
