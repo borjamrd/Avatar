@@ -37,25 +37,25 @@ let data = { image: photo, name: "Borja Muñoz", email: "borjamunoz@europapress.
 let basicInfo = {
   title: "Basic info",
   elements: [
-    { title: "Full Name", text: data.name, isEditable: true },
-    { title: "Email Address", text: data.email, isEditable: false },
-    { title: "Student ID", text: <a href="#">Add student ID</a> },
-    { title: "Password", text: <a href="#">Change Password</a> }
+    { title: "Full Name", text: data.name, isEditable: true, isText: true },
+    { title: "Email Address", text: data.email, isEditable: true, isText: true },
+    { title: "Student ID", text: (<a href="#">Add student ID</a>),isEditable: false, isText: false },
+    { title: "Password", text: <a href="#">Change Password</a>, isEditable: false, isText: true  }
   ]
 }
 
 let additionalInfo = {
   title: "Additional info",
   elements: [
-    { title: "Gender", text: <a href="#">Add Gender</a>, isEditable: false }
+    { title: "Gender", text: <a href="#">Add Gender</a>, isEditable: false, isText: true }
   ]
 }
 
 let systemSettings = {
   title: 'System settings',
   elements: [
-    { title: "Language", text: data.language, isEditable: true },
-    { title: "Privacy Settings", text: data.PrivacySettings, isEditable: true },
+    { title: "Language", text: data.language, isEditable: true, isText: true },
+    { title: "Privacy Settings", text: data.PrivacySettings, isEditable: true, isText: true },
     { title: "Global Notification Settings", text: <div><input type="checkbox" />Stream Notifications<input type="checkbox" />Email Notifications<input type="checkbox" />Push Notifications</div> }
   ]
 }
@@ -100,38 +100,59 @@ class ProfileHeader extends React.Component {
 }
 
 
-
 class UserInformation extends React.Component {
   constructor(props) {
     super(props)
     this.state = { ...props.data }
-    this.editField = this.editField.bind(this);
-  }
-  editField(){
-    
   }
 
-  
   render() {
     let informationItem = this.state.elements.map((element) =>
       <>
-        <div className="informationItem">
-          <div>{element.title}</div>
-          {(element.isEditable) ? <div><input type="text" id="editable" placeholder={element.text}></input>
-          <button onClick={this.editField}>Editar</button></div>: <div>{element.text}</div>}   
-        </div>
+        <Item element={element} />
       </>);
     return (
       <div>
         <h3>{this.state.title}</h3>
         {informationItem}
       </div>
-
     )
   }
 }
 
+class Item extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { ...this.props.element }
+    this.editField = this.editField.bind(this);
+  }
 
+  editField() {
+    this.setState(prevState => (
+      { isText: !prevState.isText },
+      { isEditable: !prevState.isEditable }));
+  }
+  /*function showButton(props){
+    constructor(props) {
+      super(props);
+      this.state = { ...this.props.element }
+      this.editField = this.editField.bind(this);
+    )
+  }*/
+    
+  }
+
+  render() {
+    return (
+      <div className="informationItem">
+        <div>{this.state.title}</div>
+        {((this.state.isEditable) && (this.state.isText)) ? <div> {this.state.text} <button onClick={this.editField} >Editar</button></div>
+          : <div> <input type="text"></input> <button onClick={this.editField} >No Editar</button></div>}
+      </div>
+    )
+  }
+
+// 
 
 ReactDOM.render(<Profile />, document.getElementById('root'));
 
