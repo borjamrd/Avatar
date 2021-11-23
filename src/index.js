@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import photo from './foto-borja.png'
@@ -39,23 +40,23 @@ let basicInfo = {
   elements: [
     { title: "Full Name", text: data.name, isEditable: true, isText: true },
     { title: "Email Address", text: data.email, isEditable: true, isText: true },
-    { title: "Student ID", text: (<a href="#">Add student ID</a>),isEditable: false, isText: false },
-    { title: "Password", text: <a href="#">Change Password</a>, isEditable: false, isText: true  }
+    { title: "Student ID", text: (<a href="#">Add student ID</a>), isEditable: false, isText: false },
+    { title: "Password", text: <a href="#">Change Password</a>, isEditable: false, isText: false }
   ]
 }
 
 let additionalInfo = {
   title: "Additional info",
   elements: [
-    { title: "Gender", text: <a href="#">Add Gender</a>, isEditable: false, isText: true }
+    { title: "Gender", text: <a href="#">Add Gender</a>, isEditable: false, isText: false }
   ]
 }
 
 let systemSettings = {
   title: 'System settings',
   elements: [
-    { title: "Language", text: data.language, isEditable: true, isText: true },
-    { title: "Privacy Settings", text: data.PrivacySettings, isEditable: true, isText: true },
+    { title: "Language", text: data.language, isEditable: false, isText: false },
+    { title: "Privacy Settings", text: data.PrivacySettings, isEditable: false, isText: false },
     { title: "Global Notification Settings", text: <div><input type="checkbox" />Stream Notifications<input type="checkbox" />Email Notifications<input type="checkbox" />Push Notifications</div> }
   ]
 }
@@ -128,31 +129,33 @@ class Item extends React.Component {
   }
 
   editField() {
-    this.setState(prevState => (
-      { isText: !prevState.isText },
-      { isEditable: !prevState.isEditable }));
-  }
-  /*function showButton(props){
-    constructor(props) {
-      super(props);
-      this.state = { ...this.props.element }
-      this.editField = this.editField.bind(this);
-    )
-  }*/
+
+      this.setState(prevState => (
+        { isEditable: !prevState.isEditable }));
     
   }
-
-  render() {
-    return (
-      <div className="informationItem">
-        <div>{this.state.title}</div>
-        {((this.state.isEditable) && (this.state.isText)) ? <div> {this.state.text} <button onClick={this.editField} >Editar</button></div>
-          : <div> <input type="text"></input> <button onClick={this.editField} >No Editar</button></div>}
-      </div>
-    )
-  }
-
-// 
+  
+    render() {
+      let myRender = undefined
+      {
+        if (this.state.isText) {
+            if (this.state.isEditable) {
+              myRender = <div> {this.state.text} <button onClick={this.editField} >Editar</button></div>
+            } else {
+              myRender = <div> <input type="text" placeholder={this.state.text}></input> <button onClick={this.editField} >No Editar</button></div>
+            }
+        } else {
+          myRender = <div>{this.state.text}</div>
+        }
+      }
+      return (
+        <div className="informationItem">
+          {myRender}
+        </div>
+      )
+    
+}
+}
 
 ReactDOM.render(<Profile />, document.getElementById('root'));
 
