@@ -108,12 +108,12 @@ class UserInformation extends React.Component {
   }
   render() {
     let informationItem = this.state.elements.map((element) =>
-      <>
+      
         <div className="informationItem">
           <div>{element.title}</div>
           {(element.isEditable) ? <input  type="text" placeholder={element.text}></input> : <div>{element.text}</div>}   
         </div>
-      </>);
+      );
     return (
       <div>
         <h3>{this.state.title}</h3>
