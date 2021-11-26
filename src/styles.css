@@ -32,15 +32,11 @@ ul {
 
 
 /*------------------------ PROFILE -------------------*/
-
-li {
-    background-color: #dcdcdc;
-    width: 100%;
-    padding: 5%;
-    border: 1px solid #808080;
+body{
+    margin: 0%;
 }
 .topSpace{
-    height: 150px;
+    height: 70px;
     background-color: cadetblue;
 }
 .profile{
@@ -59,6 +55,7 @@ li {
     justify-content: center;
     width: 100%;
     background-color: bisque;
+    padding-bottom: 2%;
 }
 .section-information{
     width: 100%;
@@ -66,31 +63,69 @@ li {
     flex-direction: row;
     gap: 5%;
 }
-.section1{
+.main{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.section1, .section2{
     display: flex;
     flex-direction: column;
     width: 50%;
     padding: 2%;
 }
-.section2{
-    width:50%;
-    padding: 2%;
+.section1{
+    border-right: 1px solid black;
 }
+
 .basic-info{
     justify-content: space-around;
     
 }
-.nestedUl{
-    margin-top:-30px;
-    margin-right: -500px;
-}
-.grid-container {
+
+.item{
     display: grid;
-    grid-template-columns: auto auto;
-    grid-gap: 10px;
-    background-color: #2196F3;
-    padding: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: aqua;
+    padding: 2%;
+    border: 1px solid black;
+  
 }
-.item1, .item2 {
-    grid-column: 1 / span 2;
+.item2{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    background-color: aqua;
+    padding: 2%;
+    border: 1px solid black;
+  
 }
+.item-button{
+    display: flex;
+    justify-content: end;
+}
+.item-checkbox{
+    display: grid;
+    grid-template-columns: 7% 93%;
+}
+
+span{
+    font-weight: bold;
+}
+
+
+/* ------- Mobile --------*/
+
+@media only screen and (max-width: 768px){
+    .main{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 2%;
+    }
+    .section1, .section2{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
