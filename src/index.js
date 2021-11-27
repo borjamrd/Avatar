@@ -2,40 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import photo from './Components/foto-borja.png';
 import "./Components/styles.css";
-import {ProfileHeader} from './Components/ProfileHeader.js';
-import {UserInformation} from './Components/UserInformation';
+import  Avatar  from './Components/Avatar.js';
+import  Profile from './Components/Profile.js'
 
-
-/* Primera tarea borja
-let data = {image:photo,name: "Borja Muñoz", email: "borjamunoz@europapress.es", phone: "+34 722 11 21 11", devices: "Mobile", location: "Madrid, Spain", RRSS: "Facebook", currency: "$", totalamount: "2,309"};
-class Avatar extends React.Component{
-  constructor(props){
-    super(props)
-    this.state = {...props.data}
-  }
-  render(){
-    return (
-        <div className="avatar">
-          <div className="personal-info">
-            <img src={this.state.image} className="avatar-img" alt="#"></img>
-            <div>{this.state.name}</div>
-            <div>{this.state.email}</div>
-            <div>{this.state.phone}</div>
-          </div>
-          <div className="other-info">
-            <ul>
-              <li>Devices Used - {this.state.devices}</li>
-              <li>Location - {this.state.location}</li>
-              <li>{this.state.RRSS} Profile </li>
-            </ul>
-          <div className="total-amount">Total Amount Spent {this.state.currency} {this.state.totalamount}</div>
-          </div>
-        </div>
-  )
-}
-} */
-
-const data = { image: photo, name: "Borja Muñoz", email: "borjamunoz@europapress.es", user: "cchu01", language: "English (United States)", PrivacySettings: "Only administrators and other instructors can view my profile information" };
+const data = { image: photo, name: "Borja Muñoz", email: "borjamunoz@europapress.es", user: "cchu01", phone: "+34 722 11 21 11", language: "English (United States)", PrivacySettings: "Only administrators and other instructors can view my profile information", devices: "Mobile", location: "Madrid, Spain", RRSS: "Facebook", currency: "$", totalamount: "2,309" };
 
 const basicInfo = {
   title: "Basic info",
@@ -63,36 +33,34 @@ const systemSettings = {
   ]
 }
 
-class Profile extends React.Component {
+class FinalRender extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { ...props.data }
-    this.thisSetStateFinalName = this.thisSetStateFinalName.bind(this);
+    this.state = { isSignedIn: false }
+    this.isSignedInOrOn = this.isSignedInOrOn.bind(this)
   }
-  thisSetStateFinalName(name) {
-    (this.setState({ name: name }
+
+  isSignedInOrOn(value) {
+    (this.setState({ isSignedIn: value }
     ))
   }
 
   render() {
+    let myRender = undefined
+    {
+      if (this.state.isSignedIn == false) {
+        myRender = <Avatar data={data} value={this.isSignedInOrOn} />
+      } else {
+        myRender = <Profile data={data} value={this.isSignedInOrOn} />
+      }
+    }
     return (
-      <><div className="topSpace"></div>
-        <ProfileHeader data={data} />
-        <div className="main">
-          <div className="section1">
-            <UserInformation data={basicInfo} onChange={this.thisSetStateFinalName} />
-            <UserInformation data={additionalInfo} />
-          </div>
-          <div className="section2">
-            <UserInformation data={systemSettings} />
-          </div>
-        </div>
-
-      </>
+      <div>
+        {myRender}
+      </div>
     )
   }
 }
-
-ReactDOM.render(<Profile />, document.getElementById('root'));
+ReactDOM.render(<FinalRender />, document.getElementById('root'));
 
 

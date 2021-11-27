@@ -17,7 +17,7 @@ export class UserInformation extends React.Component {
   render() {
     let informationItem = this.state.elements.map((element) =>
       <>
-        <Item element={element} onChange={this.handleNewName} />
+        <Item element={element} onChange={this.handleNewName}/>
       </>);
     return (
       <div>

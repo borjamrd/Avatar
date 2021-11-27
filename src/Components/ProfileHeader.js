@@ -1,5 +1,5 @@
 import React from 'react';
-import "./styles.css";
+import "./Components/styles.css";
 
 export class ProfileHeader extends React.Component {
     constructor(props) {
