@@ -1,8 +1,10 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import photo from './foto-borja.png'
-import "./styles.css";
+import photo from './Components/foto-borja.png';
+import "./Components/styles.css";
+import {ProfileHeader} from './Components/ProfileHeader.js';
+import {UserInformation} from './Components/UserInformation';
+
 
 /* Primera tarea borja
 let data = {image:photo,name: "Borja Muñoz", email: "borjamunoz@europapress.es", phone: "+34 722 11 21 11", devices: "Mobile", location: "Madrid, Spain", RRSS: "Facebook", currency: "$", totalamount: "2,309"};
@@ -64,12 +66,13 @@ const systemSettings = {
 class Profile extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { ...props.data}
+    this.state = { ...props.data }
     this.thisSetStateFinalName = this.thisSetStateFinalName.bind(this);
   }
-  thisSetStateFinalName(name){
-    (this.setState({name: name}
-    ))}
+  thisSetStateFinalName(name) {
+    (this.setState({ name: name }
+    ))
+  }
 
   render() {
     return (
@@ -77,108 +80,17 @@ class Profile extends React.Component {
         <ProfileHeader data={data} />
         <div className="main">
           <div className="section1">
-            <UserInformation data={basicInfo} onChange={this.thisSetStateFinalName}/>
-            <UserInformation  data={additionalInfo} />
+            <UserInformation data={basicInfo} onChange={this.thisSetStateFinalName} />
+            <UserInformation data={additionalInfo} />
           </div>
           <div className="section2">
             <UserInformation data={systemSettings} />
           </div>
         </div>
-        
+
       </>
     )
   }
-}
-
-class ProfileHeader extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { ...props.data };
-  }
-  render() {
-    return (
-      <div className="profile-info">
-        <img src={this.state.image} className="avatar-img" alt="#"></img>
-        <div><h1>{this.state.name}</h1></div>
-        <div>{this.state.user}</div>
-      </div>
-    )
-  }
-}
-
-class UserInformation extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { ...props.data }
-    this.handleNewName = this.handleNewName.bind(this);
-  }
-handleNewName(name){
-  this.setState({name:name})
-  this.props.onChange(name)
-}
-  render() {
-    let informationItem = this.state.elements.map((element) =>
-      <>
-        <Item element={element} onChange={this.handleNewName} />
-      </>);
-    return (
-      <div>
-        <h3>{this.state.title}</h3>
-        <div className="section-item">
-        {informationItem}
-        </div>
-      </div>
-    )
-  }
-}
-
-class Item extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { ...this.props.element}
-    this.editField = this.editField.bind(this);
-    this.addNewName = this.addNewName.bind(this);
-  }
-
-  editField() {
-      this.setState(prevState => (
-        { isEditable: !prevState.isEditable }));
-  }
-  
-  /* addNewName(e){
-    this.setState({text: e.target.value}); ----Funciona únicamente con Item, pero no para levantar el estado.
-  } */
-  addNewName(e){
-    this.props.onChange(e.target.value)
-  }
-  
-    render() {
-      let myRender = undefined
-      {
-        if (this.state.isText) {
-            if (this.state.isEditable) {
-              myRender = <div className="item" >
-                            <span>{this.state.title}</span>
-                            <div className="item-text">{this.state.text}</div>
-                            <div className="item-button"><button onClick={this.editField} >Editar</button>
-                          </div></div>
-            } else {
-              myRender = <div className="item">
-                            <span>{this.state.title}</span>
-                            <div className="item-text"><input type="text" placeholder={this.state.text} onChange={this.addNewName}></input></div> <div className="item-button"><button onClick={this.editField}>Guardar</button></div>
-                          </div>
-            }
-        } else { 
-          myRender = <div className="item2"><span>{this.state.title}</span><div>{this.state.text}</div></div>
-        }
-      }
-      return (
-        <div>
-          {myRender}
-        </div>
-      )
-    
-}
 }
 
 ReactDOM.render(<Profile />, document.getElementById('root'));
